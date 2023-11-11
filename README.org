@@ -25,6 +25,20 @@ Data 413.0 b/s
 Data 937.0 b/s
 #+end_example
 
+** Plot
+When running it using a single metric (Packet count, Bytes transfer or Packets
+dropped) and with a single statistic (RX or TX), adding the flag =-plot= will
+render a terminal plot of the given statistic.
+
+The following example shows the received packet count each second for the last
+minute and plots it on the terminal.
+
+#+begin_src bash
+gnm -count -hideNetworkInterface -only-rx -plot -output-frequency 1 wlp5s0
+#+end_src
+
+[[./plot.png]]
+
 * Installation
 ** Binaries
 [[https://github.com/rafa-dot-el/gonetmon/releases][On the releases page]] you can find the last compiled releases.
@@ -77,6 +91,8 @@ Options:
         Show only sent packets statistics
   -output-frequency int
         Output frequency in seconds (output will be averaged to the interval) (default 5)
+  -plot
+        Plot the current statistics in a chart, only allows one statistic (RX or TX) and one metric (count/transfer/drops)
   -transfer
         Show statistics about total bytes transferred
 #+end_example
