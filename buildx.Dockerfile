@@ -4,6 +4,6 @@ FROM alpine:3
 RUN apk --no-cache --no-progress add git ca-certificates tzdata \
     && rm -rf /var/cache/apk/*
 
-COPY gonetmon /
+COPY gnm /
 
 ENTRYPOINT ["/gnm"]

@@ -12,7 +12,7 @@ COPY go.sum .
 RUN go mod download
 
 COPY . .
-RUN go build -o dist/gonetmon cmd/gnm/main.go
+RUN go build -o dist/gnm cmd/gnm/main.go
 
 FROM alpine:3
 RUN apk update \
