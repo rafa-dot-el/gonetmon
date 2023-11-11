@@ -1,0 +1,122 @@
+#+Title: GoNetMon
+
+A minimalist Golang Network Monitor for GNU/Linux that follows the UNIX philosophy.
+
+* Example usage
+Given the minimalist UNIX approach, =GNM= output can be stripped down to an
+easy to parse and focused output. The example below covers monitoring only the
+statistics about the amount of bytes for the received packet.
+
+#+begin_src bash
+gnm -transfer -hideNetworkInterface -only-rx wlp5s0
+#+end_src
+
+#+begin_example
+Data 374.0 b/s
+Data 74.0 b/s
+Data 161.0 b/s
+Data 1.8 kb/s
+Data 208.0 b/s
+Data 807.0 b/s
+Data 131.0 b/s
+Data 689.2 kb/s
+Data 407.0 b/s
+Data 413.0 b/s
+Data 937.0 b/s
+#+end_example
+
+* Installation
+** Binaries
+[[https://github.com/rafa-dot-el/gonetmon/releases][On the releases page]] you can find the last compiled releases.
+
+** Docker
+Images are tagged based on the git tag but also the =latest= tag is available
+
+#+begin_src bash
+docker run -it rafadotel/gonetmon
+#+end_src
+
+will download and execute the latest version
+
+#+begin_example
+# docker run -it rafadotel/gonetmon
+#+end_example
+
+** Nixos
+This repository uses flakes so can be installed easily within a Nixos + Flakes setup.
+
+** Using Go tooling
+This project uses standard Golang tooling, so it can be installed with:
+#+begin_src bash
+go install -v github.com/rafa-dot-el/gonetmon@latest
+#+end_src
+
+* Running
+
+=GNM= is self explanatory and running it with =--help= will show the relevant information:
+
+#+begin_src bash :results output verbatim
+gnm --help
+#+end_src
+
+#+begin_example
+Usage: gnm [options] <network-interface>
+repository: https://github.com/rafa-dot-el/gonetmon
+Options:
+  -all
+        Show all network link statistics
+  -count
+        Show statistics about packet count
+  -dropped
+        Show statistics about dropped packets
+  -hideNetworkInterface
+        Don't print the network interface name
+  -only-rx
+        Show only received packets statistics
+  -only-tx
+        Show only sent packets statistics
+  -output-frequency int
+        Output frequency in seconds (output will be averaged to the interval) (default 5)
+  -transfer
+        Show statistics about total bytes transferred
+#+end_example
+
+
+* Build
+It uses standard =Golang= tooling, to build just run
+#+begin_src bash
+go build -o gnm cmd/gnm/main.go
+#+end_src
+
+** Release
+Releases are executed using =gorelease=:
+#+begin_src bash
+goreleaser release --snapshot --clean
+#+end_src
+
+* Hacking
+This project uses =nix= and =direnv=, if you have these tools installed then you
+just need to run
+
+#+begin_src bash
+direnv allow
+#+end_src
+
+and
+
+#+begin_src bash
+nix develop
+#+end_src
+
+These commands are enough to give you a development environment.
+
+* Disclaimer
+
+This or previous program is for Educational purpose ONLY. Do not use it without
+permission. The usual disclaimer applies, especially the fact that me (Rafa-dot-el)
+is not liable for any damages caused by direct or indirect use of the
+information or functionality provided by these programs. The author or any
+Internet provider bears NO responsibility for content or misuse of these
+programs or any derivatives thereof. By using these programs you accept the fact
+that any damage (dataloss, system crash, system compromise, etc.) caused by the
+use of these programs is not Rafa-dot-el's responsibility.
