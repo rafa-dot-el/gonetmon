@@ -191,13 +191,13 @@ func main() {
 		if showDropped {
 			metrics += 1
 		}
-		if metrics > 1 || !(onlyRX || onlyTX) {
+		if metrics > 1 || (!onlyRX && !onlyTX) {
 			err := fmt.Errorf("plotting only allows one statistic (RX or TX) and one metric (count/transfer/drops)")
 			fmt.Println(err)
 			os.Exit(255)
 		}
 		if !term.IsTerminal(0) {
-			err := fmt.Errorf("Plotting requires a valid terminal")
+			err := fmt.Errorf("plotting requires a valid terminal")
 			fmt.Println(err)
 			os.Exit(255)
 		}
@@ -355,11 +355,11 @@ func processNetworkStats(input chan<- NetworkStats) {
 func readUint64FromFile(filePath string) (uint64, error) {
 	data, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return 0, fmt.Errorf("Error reading file %s: %v", filePath, err)
+		return 0, fmt.Errorf("error reading file %s: %v", filePath, err)
 	}
 	value, err := strconv.ParseUint(strings.TrimSpace(string(data)), 10, 64)
 	if err != nil {
-		return 0, fmt.Errorf("Error parsing value from %s: %v", filePath, err)
+		return 0, fmt.Errorf("error parsing value from %s: %v", filePath, err)
 	}
 	return value, nil
 }

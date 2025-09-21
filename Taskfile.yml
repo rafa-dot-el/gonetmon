@@ -1,0 +1,57 @@
+version: '3'
+
+tasks:
+  default:
+    desc: "Show all available tasks"
+    cmds:
+      - task --list-all
+
+  build:
+    desc: "Build the application"
+    cmds:
+      - go build -o gnm cmd/gnm/main.go
+
+  run:
+    desc: "Run the application"
+    cmds:
+      - go run cmd/gnm/main.go
+
+  test:
+    desc: "Run tests"
+    cmds:
+      - go test ./...
+
+  tidy:
+    desc: "Tidy dependencies"
+    cmds:
+      - go mod tidy
+
+  lint:
+    desc: "Run linter"
+    cmds:
+      - golangci-lint run
+
+  release:
+    desc: "Create a new release"
+    cmds:
+      - goreleaser release --snapshot --clean
+
+  docker:build:
+    desc: "Build Docker image"
+    cmds:
+      - docker build -t rafadotel/gonetmon .
+
+  docker:run:
+    desc: "Run Docker image"
+    cmds:
+      - docker run -it rafadotel/gonetmon
+
+  nix:develop:
+    desc: "Enter Nix development environment"
+    cmds:
+      - nix develop
+
+  nix:shell:
+    desc: "Allow direnv to load the Nix shell"
+    cmds:
+      - direnv allow

@@ -7,5 +7,5 @@ in import (fetchTree nixpkgs.locked) {
 
 let goEnv = pkgs.mkGoEnv { pwd = ./.; };
 in pkgs.mkShell {
-  packages = [ goEnv pkgs.goreleaser pkgs.gomod2nix pkgs.gopls ];
+    packages = [ goEnv pkgs.goreleaser pkgs.gomod2nix pkgs.gopls pkgs.golangci-lint ];
 }
